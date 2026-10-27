@@ -1,0 +1,841 @@
+{
+  "address": "9sKnrstB16ZL2Yb8mLHXHcyeWffeZyJU17m9UJa6G8oT",
+  "metadata": {
+    "name": "metboi_agentic",
+    "version": "0.1.0",
+    "spec": "0.1.0",
+    "description": "Policy-enforced agent wallet for Meteora"
+  },
+  "instructions": [
+    {
+      "name": "execute",
+      "docs": [
+        "Runs one Meteora instruction for the agent, with the wallet PDA as signer.",
+        "remaining_accounts is the target instruction's account list, in order."
+      ],
+      "discriminator": [
+        130,
+        221,
+        242,
+        154,
+        13,
+        193,
+        189,
+        29
+      ],
+      "accounts": [
+        {
+          "name": "authority",
+          "signer": true
+        },
+        {
+          "name": "vault",
+          "writable": true
+        },
+        {
+          "name": "wallet",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  97,
+                  108,
+                  108,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "target_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "data",
+          "type": "bytes"
+        }
+      ]
+    },
+    {
+      "name": "initialize",
+      "discriminator": [
+        175,
+        175,
+        109,
+        31,
+        13,
+        152,
+        155,
+        237
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "writable": true,
+          "signer": true
+        },
+        {
+          "name": "vault",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  118,
+                  97,
+                  117,
+                  108,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "owner"
+              },
+              {
+                "kind": "arg",
+                "path": "id"
+              }
+            ]
+          }
+        },
+        {
+          "name": "wallet",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  97,
+                  108,
+                  108,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "id",
+          "type": "u64"
+        },
+        {
+          "name": "agent",
+          "type": "pubkey"
+        },
+        {
+          "name": "agent_expires_at",
+          "type": "i64"
+        },
+        {
+          "name": "policy",
+          "type": {
+            "defined": {
+              "name": "PolicyInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "owner_execute",
+      "docs": [
+        "Lets the owner run any instruction as the wallet, so funds never depend on the agent rule table."
+      ],
+      "discriminator": [
+        27,
+        1,
+        139,
+        5,
+        142,
+        17,
+        106,
+        184
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "wallet",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  97,
+                  108,
+                  108,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "target_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "data",
+          "type": "bytes"
+        }
+      ]
+    },
+    {
+      "name": "set_agent",
+      "discriminator": [
+        154,
+        74,
+        121,
+        91,
+        137,
+        19,
+        101,
+        166
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "agent",
+          "type": "pubkey"
+        },
+        {
+          "name": "agent_expires_at",
+          "type": "i64"
+        }
+      ]
+    },
+    {
+      "name": "set_paused",
+      "discriminator": [
+        91,
+        60,
+        125,
+        192,
+        176,
+        225,
+        166,
+        218
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "paused",
+          "type": "bool"
+        }
+      ]
+    },
+    {
+      "name": "update_policy",
+      "discriminator": [
+        212,
+        245,
+        246,
+        7,
+        163,
+        151,
+        18,
+        57
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault",
+          "writable": true
+        }
+      ],
+      "args": [
+        {
+          "name": "policy",
+          "type": {
+            "defined": {
+              "name": "PolicyInput"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "name": "withdraw_sol",
+      "discriminator": [
+        145,
+        131,
+        74,
+        136,
+        65,
+        137,
+        42,
+        38
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "wallet",
+          "writable": true,
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  97,
+                  108,
+                  108,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "to",
+          "writable": true
+        },
+        {
+          "name": "system_program",
+          "address": "11111111111111111111111111111111"
+        }
+      ],
+      "args": [
+        {
+          "name": "lamports",
+          "type": "u64"
+        }
+      ]
+    },
+    {
+      "name": "withdraw_token",
+      "docs": [
+        "Withdraws tokens. remaining_accounts carries the extra accounts a transfer hook needs, if the mint has one."
+      ],
+      "discriminator": [
+        136,
+        235,
+        181,
+        5,
+        101,
+        109,
+        57,
+        81
+      ],
+      "accounts": [
+        {
+          "name": "owner",
+          "signer": true,
+          "relations": [
+            "vault"
+          ]
+        },
+        {
+          "name": "vault"
+        },
+        {
+          "name": "wallet",
+          "pda": {
+            "seeds": [
+              {
+                "kind": "const",
+                "value": [
+                  119,
+                  97,
+                  108,
+                  108,
+                  101,
+                  116
+                ]
+              },
+              {
+                "kind": "account",
+                "path": "vault"
+              }
+            ]
+          }
+        },
+        {
+          "name": "mint"
+        },
+        {
+          "name": "from",
+          "writable": true
+        },
+        {
+          "name": "to",
+          "writable": true
+        },
+        {
+          "name": "token_program"
+        }
+      ],
+      "args": [
+        {
+          "name": "amount",
+          "type": "u64"
+        }
+      ]
+    }
+  ],
+  "accounts": [
+    {
+      "name": "Vault",
+      "discriminator": [
+        211,
+        8,
+        232,
+        43,
+        2,
+        152,
+        117,
+        119
+      ]
+    }
+  ],
+  "events": [
+    {
+      "name": "Executed",
+      "discriminator": [
+        8,
+        232,
+        139,
+        132,
+        197,
+        45,
+        29,
+        164
+      ]
+    }
+  ],
+  "errors": [
+    {
+      "code": 6000,
+      "name": "Unauthorized",
+      "msg": "Signer is neither the owner nor the active agent"
+    },
+    {
+      "code": 6001,
+      "name": "Paused",
+      "msg": "Vault is paused"
+    },
+    {
+      "code": 6002,
+      "name": "AgentExpired",
+      "msg": "Agent key has expired"
+    },
+    {
+      "code": 6003,
+      "name": "InstructionNotAllowed",
+      "msg": "Program or instruction is not allowed"
+    },
+    {
+      "code": 6004,
+      "name": "ActionDisabled",
+      "msg": "Action is disabled by policy"
+    },
+    {
+      "code": 6005,
+      "name": "PoolNotAllowed",
+      "msg": "Pool is not on the allowlist"
+    },
+    {
+      "code": 6006,
+      "name": "MalformedInstruction",
+      "msg": "Instruction data or account list is malformed"
+    },
+    {
+      "code": 6007,
+      "name": "SenderNotWallet",
+      "msg": "Signing account must be the vault wallet"
+    },
+    {
+      "code": 6008,
+      "name": "AccountNotOwnedByWallet",
+      "msg": "Funds would reach an account the vault wallet does not own"
+    },
+    {
+      "code": 6009,
+      "name": "FeeRecipientNotAllowed",
+      "msg": "Fee recipient accounts must stay empty"
+    },
+    {
+      "code": 6010,
+      "name": "PositionNotOwnedByWallet",
+      "msg": "Position is not owned by the vault wallet"
+    },
+    {
+      "code": 6011,
+      "name": "MintNotAllowed",
+      "msg": "Token has no spending budget"
+    },
+    {
+      "code": 6012,
+      "name": "TxCapExceeded",
+      "msg": "Spend exceeds the per-trade cap, counted per slot"
+    },
+    {
+      "code": 6013,
+      "name": "DailyCapExceeded",
+      "msg": "Spend exceeds the rolling 24 hour cap"
+    },
+    {
+      "code": 6014,
+      "name": "InvalidPolicy",
+      "msg": "Policy has too many entries, duplicates, or inconsistent caps"
+    },
+    {
+      "code": 6015,
+      "name": "AgentIsOwner",
+      "msg": "Agent must be a different key from the owner"
+    },
+    {
+      "code": 6016,
+      "name": "NotAPositionNft",
+      "msg": "Burned account must hold exactly one position NFT"
+    },
+    {
+      "code": 6017,
+      "name": "PositionControlledByOther",
+      "msg": "Position has an operator, fee owner, or lock set by someone else"
+    },
+    {
+      "code": 6018,
+      "name": "WalletSlotNotAllowed",
+      "msg": "The vault wallet may only appear in the account slots a rule names"
+    },
+    {
+      "code": 6019,
+      "name": "WalletCorrupted",
+      "msg": "The vault wallet must stay a system-owned account with no data"
+    },
+    {
+      "code": 6020,
+      "name": "RebalanceRemoveNotAllowed",
+      "msg": "Rebalancing may only add liquidity"
+    },
+    {
+      "code": 6021,
+      "name": "ConfigNotAllowed",
+      "msg": "Launch config must pay the vault wallet and charge no pool creation fee"
+    },
+    {
+      "code": 6022,
+      "name": "TransferHookNotAllowed",
+      "msg": "Mints with a transfer hook are not allowed"
+    },
+    {
+      "code": 6023,
+      "name": "ArgumentNotAllowed",
+      "msg": "An instruction argument has a value the vault does not allow"
+    },
+    {
+      "code": 6024,
+      "name": "AccountMustBeNew",
+      "msg": "This account must not exist yet"
+    },
+    {
+      "code": 6025,
+      "name": "PendingFeesNotClaimed",
+      "msg": "Claim fees and rewards before closing this position"
+    },
+    {
+      "code": 6026,
+      "name": "TargetNotAllowed",
+      "msg": "This program cannot call itself"
+    }
+  ],
+  "types": [
+    {
+      "name": "Budget",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "meter",
+            "type": {
+              "defined": {
+                "name": "Meter"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "CapInput",
+      "docs": [
+        "Owner-supplied limits. Spent counters are kept by the program."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "mint",
+            "type": "pubkey"
+          },
+          {
+            "name": "tx_cap",
+            "type": "u64"
+          },
+          {
+            "name": "daily_cap",
+            "type": "u64"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Executed",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "vault",
+            "type": "pubkey"
+          },
+          {
+            "name": "authority",
+            "type": "pubkey"
+          },
+          {
+            "name": "target",
+            "type": "pubkey"
+          },
+          {
+            "name": "action",
+            "type": "u8"
+          }
+        ]
+      }
+    },
+    {
+      "name": "Meter",
+      "docs": [
+        "A spend limit with two caps.",
+        "The trade cap counts everything spent in one slot, so several calls in one transaction cannot get around it.",
+        "The daily cap sums hourly buckets, so spend stays counted for 24 to 25 hours and it rolls instead of resetting."
+      ],
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "tx_cap",
+            "type": "u64"
+          },
+          {
+            "name": "daily_cap",
+            "type": "u64"
+          },
+          {
+            "name": "slot_spent",
+            "type": "u64"
+          },
+          {
+            "name": "last_slot",
+            "type": "u64"
+          },
+          {
+            "name": "last_hour",
+            "type": "i64"
+          },
+          {
+            "name": "buckets",
+            "type": {
+              "array": [
+                "u64",
+                25
+              ]
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "PolicyInput",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "actions",
+            "type": "u8"
+          },
+          {
+            "name": "lamport_tx_cap",
+            "type": "u64"
+          },
+          {
+            "name": "lamport_daily_cap",
+            "type": "u64"
+          },
+          {
+            "name": "pools",
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "budgets",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "CapInput"
+                }
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "name": "Vault",
+      "type": {
+        "kind": "struct",
+        "fields": [
+          {
+            "name": "owner",
+            "type": "pubkey"
+          },
+          {
+            "name": "agent",
+            "type": "pubkey"
+          },
+          {
+            "name": "id",
+            "type": "u64"
+          },
+          {
+            "name": "bump",
+            "type": "u8"
+          },
+          {
+            "name": "wallet_bump",
+            "type": "u8"
+          },
+          {
+            "name": "paused",
+            "type": "bool"
+          },
+          {
+            "name": "actions",
+            "type": "u8"
+          },
+          {
+            "name": "agent_expires_at",
+            "docs": [
+              "Unix seconds. Zero means the agent key does not expire."
+            ],
+            "type": "i64"
+          },
+          {
+            "name": "lamports",
+            "type": {
+              "defined": {
+                "name": "Meter"
+              }
+            }
+          },
+          {
+            "name": "pools",
+            "type": {
+              "vec": "pubkey"
+            }
+          },
+          {
+            "name": "budgets",
+            "type": {
+              "vec": {
+                "defined": {
+                  "name": "Budget"
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
