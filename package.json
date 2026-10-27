@@ -1,0 +1,44 @@
+{
+  "name": "metboi-agentic",
+  "version": "0.1.1",
+  "private": true,
+  "type": "module",
+  "description": "A limited vault wallet for AI agents on Meteora. No independent audit.",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "metboi": "bin/metboi.mjs",
+    "metboi-mcp": "bin/mcp.mjs"
+  },
+  "scripts": {
+    "gen:rules": "node scripts/gen-rules.mjs",
+    "build": "anchor build && cp target/idl/metboi_agentic.json idl/metboi_agentic.json",
+    "test": "node --test --test-force-exit --test-concurrency=1 test/*.test.mjs"
+  },
+  "dependencies": {
+    "@coral-xyz/anchor": "0.31.1",
+    "@meteora-ag/cp-amm-sdk": "1.4.10",
+    "@meteora-ag/dlmm": "1.9.14",
+    "@meteora-ag/dynamic-bonding-curve-sdk": "1.5.13",
+    "@modelcontextprotocol/sdk": "1.32.2",
+    "@solana/spl-token": "0.4.15",
+    "@solana/web3.js": "1.99.0",
+    "bn.js": "5.2.5",
+    "zod": "4.6.7"
+  },
+  "devDependencies": {
+    "bs58": "6.0.0",
+    "buffer": "6.0.3",
+    "esbuild": "0.25.12"
+  },
+  "license": "MIT",
+  "files": [
+    "bin/",
+    "sdk/",
+    "idl/metboi_agentic.json",
+    "idl/meteora/dlmm.json",
+    "LICENSE",
+    "NOTICE"
+  ]
+}

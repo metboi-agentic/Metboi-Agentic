@@ -1,0 +1,22 @@
+skip_local_validator = true
+
+[toolchain]
+
+[features]
+resolution = true
+skip-lint = false
+
+[programs.localnet]
+metboi_agentic = "9sKnrstB16ZL2Yb8mLHXHcyeWffeZyJU17m9UJa6G8oT"
+
+[programs.devnet]
+metboi_agentic = "9sKnrstB16ZL2Yb8mLHXHcyeWffeZyJU17m9UJa6G8oT"
+
+[provider]
+cluster = "localnet"
+wallet = "keys/program.json"
+
+[scripts]
+test = "node --test test/*.test.mjs"
+
+[hooks]

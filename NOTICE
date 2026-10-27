@@ -1,0 +1,9 @@
+Metboi Agentic is an independent project. It is not made by, endorsed by, or
+affiliated with Meteora.
+
+The MIT License in LICENSE covers the code written for this project. It does
+not cover the following, which keep their own owners and terms:
+
+- Metboi characters and artwork, in web/assets, assets-source, and marketing.
+- Meteora program interface files, in idl/meteora.
+- Third-party packages listed in package.json and npm-shrinkwrap.json.
