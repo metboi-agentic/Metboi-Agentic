@@ -1,0 +1,8 @@
+{
+ "cluster": "mainnet-beta",
+ "program": "9sKnrstB16ZL2Yb8mLHXHcyeWffeZyJU17m9UJa6G8oT",
+ "upgradeAuthority": "D1ymAWc6TPvHi78rNvigsuALhC8DZ6dcV2yzeTEgTF8W",
+ "binarySha256Prefix": "e14c67c177c03d7d",
+ "deploySignature": "WMxpD3EeEBR6Bks4V6mKtjHMXQwUEgfqRyQfXKij174rkDNg3mSuBBjwyD4RCCcFAv8whHSkcwpPe5LseCUrpJa",
+ "deployedAt": "2026-11-03"
+}

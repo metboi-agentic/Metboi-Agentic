@@ -1,0 +1,199 @@
+{
+ "cluster": "devnet",
+ "program": "9sKnrstB16ZL2Yb8mLHXHcyeWffeZyJU17m9UJa6G8oT",
+ "txs": {
+  "mint_supply": "4YBhsF1gDSkjrkS5kJ7pw1oynYpyQPmEVxLrCm3ZmBTn3YfSWmLAVD6JucTLxNcBhuqKxYJ4GmuAwGFCED1Tg6r5",
+  "dlmm_create_pool": "4okpnJkP8uwocDZZMnJ9BvbDgHDEZdsGkwiVjM41yPYtUULeJn1qbPPKoxtguVdMwd6phCMCgzmJNYY1yFXH1sk4",
+  "damm_create_pool": "37fZSfWsFW192MavUSUoz2bKqoSBwZxXUMVjQD6Gnt4SKAoE9HXRokgegGsooLWCFaWn3L9JakEkfyhJiZgUQJoG",
+  "fund_keys": "2cGuuX67FqGu513mLcyNFudFGcotmm9wtnLPtCxhxSavjBPdQNZyHWF7R2ZoNjhcBsd3YVrn5JYZcnmkqN775YMX",
+  "dlmm_owner_lp": "2Y8cK2b9FrFCMVs2UN6214T2N1e8uPuzF57PDYKCfFn8iqF7YPMZRRLLrxNKDgxszV8emyv6qr996NFu7FvhNtsT",
+  "damm_owner_lp": "2yfwdAgUHQx46AaenzZyz17ooKswwfbfWZisxe5KExYTvu3duXbPmFxEcdA31wQw7wtePKPs3T19T8awdpodDJgr",
+  "vault_initialize": "611BMq947S39SYE3mEwhpeJmc5JPaXDjNUgvMb66TT2TDEkxLSBKeuFPqMmKEhRifczSUP4AJ5Z38NbF1uj7UNdL",
+  "agent_dlmm_swap": "3W6DNqDCHYHuNxEM5b2EgKfUmuLhYCoNGkn5KVuScbBSm3BEiPYMB99VCaLPdD8jzEtjCDveiBotTZ6iqKCu1TyL",
+  "agent_damm_swap": "4gRusC4Ebb3etKX8kBVckyzVetuh6ZeYwYLnFdEWmH3gwRm4vkBeRqoo7ByY4Hobtf6B4fT74zKzqaaiTqYd7WA",
+  "agent_dlmm_open": "4uL7vKKshz7dcujQxRLfahEsaQupFrQ7P8moXUAbos5LsLQD7DaDD21k7ejG3A2PSvVSEVKaGUTZNSbWnq7NPYCu",
+  "agent_dlmm_close": "4mWGbMPrKxKBERHJE5Dafn57QSZvb6qTAGfsqXt2nXW9igkcT3C7THuMKFsFmZ2jU3N76GQcvkKDuqZJdRgHRtyC",
+  "owner_pause": "4GVQiTYJZQiEzQq5mofE9yJn4vrZ7Xd4ofFti9y9qRPZHaA2qm1L68156p6mdUbdeDJ1kS5SfHsKTECxCmEhM6h2",
+  "owner_resume": "4b6XunZYq2j1QZ5WxxdxsMuP2CUdE5Co6X2bbfXefCyVZEV82gFhgEiVjoZBPihdzEFJ327ZRUycvyUuTpGsWqx7"
+ },
+ "vault": "7SPgYd5icxtqE4tgL7JDHAqYWDZj8Fi4Z3B4rXZpAjKj",
+ "wallet": "3ZApRbsxQBcST3jNC9YZqHEJjEDSUv5J1HHejU79q6ZT",
+ "owner": "Eda3Uq45TwKTLqA2x86GQgSF9KXTM3VShGBrK1Q5Lbg1",
+ "agent": "DANgqce7Nq9hq48Pcn7ABgzBWba5JjV9Ruyp7pHPvcob",
+ "upgradeAuthority": "FK22AVBkYu7Z9GQQpezhGbquo7sWfNKGtftAg5ReJRG4",
+ "mint": "EtnJUaf2tyZAU6EJgZSyasWhxJVvzSa8pckr47fVMMMT",
+ "dlmmPool": "9WXrtHXUA2nt5VLKt3fSkVKksQBgxJcRKHtQJZ9UuYcE",
+ "dammPool": "F8daFUihj4i6p6gqTJy71cbcRMNFD19btFcFRYMGNW5E",
+ "previousVault": {
+  "vault": "HQgmAYYBf2Nc5vQi4KFmUMY5qhDeoWMN6o98HGA1WHno",
+  "wallet": "8vcCHzizzGb813v8cjjMbDDQzLbLzabxDvDJRtTvBQfY",
+  "note": "Old meter layout. Unusable after the 2026-11-02 upgrade. Its SOL and wSOL were withdrawn first, and test tokens remain in it."
+ },
+ "vaultId": 1,
+ "checks": {
+  "attack_redirect_output": "AccountNotOwnedByWallet",
+  "attack_direct_token_transfer": "InstructionNotAllowed",
+  "attack_agent_withdraw": "Unauthorized",
+  "attack_wallet_as_position": "WalletSlotNotAllowed",
+  "limit_tx_cap": "TxCapExceeded",
+  "budget_after_swaps": "15000000",
+  "paused_agent_refused": "Paused",
+  "final_status": "{\"lamports\":150000000,\"balances\":[{\"mint\":\"EtnJUaf2tyZAU6EJgZSyasWhxJVvzSa8pckr47fVMMMT\",\"amount\":\"4745919268\",\"decimals\":6},{\"mint\":\"So11111111111111111111111111111111111111112\",\"amount\":\"84175144\",\"decimals\":9}],\"budgets\":[\"40000002\",\"995000003\"]}"
+ },
+ "agentPosition": "8fz9RGoscN55k3mScR9EgfMvM817e1sG8vTz2nGhjpk9",
+ "tools": {
+  "return_funds": {
+   "signature": "3pDdjt6zuG2wENMGdFrNE4o6dEKfGg1fFrpqFGWjRzkUThMuQCu3GLW68PmCxY7fjkihi9Ad1AdSB73igxfmLro3"
+  },
+  "turn_on_launch": {
+   "signature": "33zG3sBkmaxxv3AZYEoHuQ3Lcx94g7Lv5ydbZq41qU8ZwtFG19JRbHauGZBPg6de7s4P5xPi8Xj1Z3A4DunL1Lcc"
+  },
+  "dbc_create_config": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "4rLpfyYFXoVYVWCxH97H3QdN45UwCEZ8kzAYPfna1xxquVkNZLZxaWVEoUp92Rfub6ewizVAMmcYDVHTCQaszCt7",
+   "config": "Fo8LDiTU2pYGaWofxfEJ7H1aj9CaoAgAiKeRr34mDVQU"
+  },
+  "dbc_launch": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "5HW7kiDM2QSEHEM5VXF67DyueMDWxX9af2QSPq36y1MiGxz14Sjcx4HZjx9UUm5zbGx9Z7EaBNGM3EyqVyq5rzU5",
+   "mint": "FP2gqMuHprLwNXUegV3yeeVQTRdr2QaAEd53TaUxywC2",
+   "pool": "Aw2ppMpDM444sjr6bKbAR1t1VKHCr5iGDUsrKkpUgNPi",
+   "note": "The owner must list this pool before the agent can trade it."
+  },
+  "owner_lists_launch": {
+   "signature": "4nuQE6CrmnVxfy3stRg4zKfw4GvMtKZeZK4PvMZgQTB3WJDbxMTPRG7w7Z2UJe6f5Gq6BCEJhXmFGxa8t11EdLii"
+  },
+  "dbc_buy": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "vHpHe6KthfHgDPsLR8PzCrrEZdmKDKZYx5oHaMEG5m6PV6ivpgQzd5j5qDF513mgLQDrvPcu4PH7uEbeANmRRrh",
+   "expectedOut": "659597296302",
+   "minOut": "653001323338"
+  },
+  "dbc_sell": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "5bzcaMgdsmRgSGFddFUTM4agmvjqUUY2QFKSWN5XEJpFCvP8F9z5gXCUQ8QqoztjBc7g2aFwpeNpdZRzocwCi31j",
+   "expectedOut": "9803990",
+   "minOut": "9705950"
+  },
+  "dbc_claim_creator": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "3kQ97vRDai4PMwUHvyd9x5TazA6Bzm7bjV6r8dKkLeoN1tEaiJ7KFEdf6ViPqMi8kEhTJCvUFMViHuDUqaUS3TLS"
+  },
+  "dbc_claim_partner": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "2yu18Au9QhcVbqX9JQmAoShn7WaGcCDCTUtnnwKcqcHbouC6pUTtfVe8EMoV5ga8AdKxqwbMhUf6BLPdgCoTxSru"
+  },
+  "dlmm_open_exact_range": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "5XAcB5N6Tt1cY7vfwLvZh1jArXVoxokXw1tCPDtJ1BGXFTMCsu1q39zgxuqdxWJypUsCUUt4bLgUg5PnTzLkrzVy",
+   "position": "BhMBbnt6Xuv7JBhJ5ir678QLNBQNKryZ3V9Ze9QWtw2U",
+   "lowerBin": -1004,
+   "upperBin": -992
+  },
+  "dlmm_add": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "4YuZb3ahgpsSUTFSorueRQicjdCgNWgMSm8SP7PjYvBpFj4VCduFFEFJx99XWwyFj53zDE2gWzDXCahDwgNBcdqY"
+  },
+  "dlmm_extend": {
+   "ok": true,
+   "steps": [
+    {
+     "ok": true,
+     "simulated": true,
+     "broadcast": true,
+     "signature": "4hg8HcwxYGbgEoxuMwqvSGUG3r5HpBo7hCmQSWwzdC6iPe62tiCp2zS8xyfNJriusYmXvptFdz5TKWNK2btngoX4"
+    }
+   ]
+  },
+  "dlmm_remove_half": {
+   "ok": true,
+   "steps": [
+    {
+     "ok": true,
+     "simulated": true,
+     "broadcast": true,
+     "signature": "hx4y3omiYViswn1BhhJN2JJFX52Lq3vMkyvNXUEyrFQ6nTzcnuwT8p5ZhHz7ZrPtiocPMDsj47BA9xgo4GYRcQJ"
+    }
+   ]
+  },
+  "dlmm_rebalance": {
+   "ok": true,
+   "stage": "open",
+   "closed": [
+    {
+     "ok": true,
+     "simulated": true,
+     "broadcast": true,
+     "signature": "3vnon3twzJyBSjJQnUzkuUa2KwQdQ5BScSnPq4uxMC14XvAQETt31JaAEdJGa8PTRCaqz3Smy3KFsMUxZrnkLD6v"
+    }
+   ],
+   "opened": {
+    "ok": true,
+    "simulated": true,
+    "broadcast": true,
+    "signature": "5rN6SNN8YzKjHgq76LG5VJHSkUs7AKnmoMvjK3Edg6M7xRUFSpHFi4LWN5vt4qMVg6WQfNjkCU5TuiLwV3Ro7zMn",
+    "position": "EEsnghp6xc7umT2VY3KosJTjnRBRC8RxxnMSsKvNZDcv",
+    "lowerBin": -1001,
+    "upperBin": -995
+   }
+  },
+  "dlmm_close": {
+   "ok": true,
+   "steps": [
+    {
+     "ok": true,
+     "simulated": true,
+     "broadcast": true,
+     "signature": "TBi3Aes5tRhwqbAsLiZWPwXK6eZREJZran8wa59YQjyiUyEKfipGsNbHwywr5rNM1Mp8sGgLuwxCjmqF9H1ab5o"
+    }
+   ]
+  },
+  "damm_open": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "5SuJNqT3xgutyVgFEY19Ygb5Yb7CYdtBKGwjZBZuu4t6AJHBBxnBBj5Te1httBA2E5phtqjv52i8MR5Wm7JcyD6i",
+   "position": "9nc1Vu8ieFYSjq68rHqsZXybEZtqjiw9Yn3ubYKGr886"
+  },
+  "damm_add": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "2mK2KxANSS35cECaTiCb5UR15b4stvxSYFBTZJrVBDWoDJt5c3QdAfjVTkpZByBaPbxZRVCKGoLhnbGX2x4ka7Am"
+  },
+  "damm_remove_half": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "36dTev6qADg3isbcZYkVqXJxvnV3o2wdgMZSBwDGR13PPG7VXXWdMdNi5CVnuVNwCtAiGXW7tTrufbHhDfKEi1AE"
+  },
+  "damm_claim": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "37Kfd2ZRQwaFeJW4pT9evBnuLd8D7mhzTVCra3He4nCvd6VDsP5Bck8eVT9S4w7QSeDWbAbothe3fPDmiGftCxiY"
+  },
+  "damm_close": {
+   "ok": true,
+   "simulated": true,
+   "broadcast": true,
+   "signature": "8zg3kXazopk9sAqnnrVrJeaQRRMKqdNKAE97SEdAASWbRGdkqyKXY9GPe9EGwgGfbGxyo8Ba2PnDyooV8ZGHdtt"
+  }
+ }
+}
