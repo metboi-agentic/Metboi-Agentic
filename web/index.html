@@ -1,0 +1,164 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Metboi Agentic</title>
+<meta name="description" content="A limited vault wallet that lets your AI agent swap, provide liquidity, and launch tokens on Meteora, inside pool, action, and spending limits enforced on-chain.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="stylesheet" href="styles.css?v=66fa33cf2713">
+</head>
+<body>
+<div class="wrap">
+  <header class="top">
+    <a class="brand" href="#" aria-label="Metboi Agentic home"><span data-logo style="display:inline-flex"></span>Metboi Agentic</a>
+    <nav aria-label="Sections">
+      <a href="#refused">What gets refused</a>
+      <a href="#venues">What the agent can do</a>
+      <a href="#setup">Setup</a>
+      <a href="https://x.com/MetboiAgentic" target="_blank" rel="noopener">X</a>
+    </nav>
+    <div class="right">
+      <span class="chip live">Mainnet</span>
+      <a class="btn" href="/console">Console</a>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-head">
+        <h1>A limited vault wallet that lets your AI agent swap, provide liquidity, and launch tokens on Meteora.</h1>
+        <div class="hero-side">
+          <p>You set the allowed pools, actions, and spending caps per trade and per 24 hours, and a Solana program enforces them. Your agent works on DLMM, DAMM v2, and DBC inside those limits. Even with a stolen agent key, it cannot withdraw, change the limits, or send funds to another account.</p>
+          <div class="hero-actions">
+            <a class="btn primary" href="/console">Open the console</a>
+            <a class="textlink" href="#refused">See what gets refused</a>
+          </div>
+        </div>
+        <img class="mascot" src="assets/metboi-army.png" width="473" height="520" alt="Metboi in a helmet, saluting" fetchpriority="high">
+      </div>
+
+      <div class="desk">
+        <article class="frame limits-panel" aria-label="The limits the owner signed for this agent">
+          <div class="legend">agent.limits</div>
+          <div class="term-label">// may do</div>
+          <p>swap, add and remove liquidity, claim fees and rewards, open and close positions</p>
+          <div class="term-label">// only in these pools</div>
+          <p id="paper-pools"></p>
+          <div class="term-label">// may spend</div>
+          <div id="paper-limits"></div>
+          <div class="signature">
+            <div>signed by owner<b id="paper-owner"></b></div>
+            <div style="text-align:right">agent key<b id="paper-agent"></b></div>
+          </div>
+        </article>
+
+        <div class="frame session">
+          <div class="legend">agent.session</div>
+          <div class="term" id="term" role="log" aria-label="Replay of a devnet test run" tabindex="0"></div>
+          <div class="statusline" id="statusline">
+            <span><span class="dot"></span><span id="status-text">idle</span></span>
+            <span class="replay">replay of a scripted devnet test, 2 Nov 2026</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="refused">
+      <h2 class="title">Assume the agent is compromised. This is what it still cannot do.</h2>
+      <p class="lead">Each row was attempted against the real Meteora programs. The right column is the error the vault returned.</p>
+      <div class="scroll-x">
+      <table class="data">
+        <thead><tr><th>The attempt</th><th>Vault response</th></tr></thead>
+        <tbody>
+          <tr><td>Send swap output to another account <span class="note">Meteora's program accepts this when called directly. <span class="mark">Only the vault stops it</span></span></td><td class="code">AccountNotOwnedByWallet</td></tr>
+          <tr><td>Pay removed liquidity to another account <span class="note">Meteora's program accepts this when called directly. <span class="mark">Only the vault stops it</span></span></td><td class="code">AccountNotOwnedByWallet</td></tr>
+          <tr><td>Claim fees or rewards into another account</td><td class="code">AccountNotOwnedByWallet</td></tr>
+          <tr><td>Collect the referral or host fee on its own swaps</td><td class="code">FeeRecipientNotAllowed</td></tr>
+          <tr><td>Transfer tokens or SOL straight out of the wallet</td><td class="code">InstructionNotAllowed</td></tr>
+          <tr><td>Lock or split a position</td><td class="code">InstructionNotAllowed</td></tr>
+          <tr><td>Fund a position someone else controls</td><td class="code">PositionControlledByOther</td></tr>
+          <tr><td>Launch on a config that pays someone else or charges a fee</td><td class="code">ConfigNotAllowed</td></tr>
+          <tr><td>Use a token with a transfer hook</td><td class="code">TransferHookNotAllowed</td></tr>
+          <tr><td>Reassign the vault wallet to another program</td><td class="code">WalletSlotNotAllowed</td></tr>
+          <tr><td>Trade in a pool you did not list</td><td class="code">PoolNotAllowed</td></tr>
+          <tr><td>Spend above the limit, per trade or in any 24 hours</td><td class="code">TxCapExceeded, DailyCapExceeded</td></tr>
+          <tr><td>Change its own limits, or withdraw</td><td class="code">Unauthorized</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section class="block" id="venues">
+      <div class="title-row"><div><h2 class="title">What the agent can do</h2>
+      <p class="lead">Everything else on these programs is blocked by default.</p></div><img class="side-art" src="assets/metboi-pool.png" width="592" height="512" alt="Metboi relaxing in a pool" loading="lazy"></div>
+      <div class="scroll-x">
+      <table class="data venues">
+        <thead><tr><th>Action</th><th>DLMM</th><th>DAMM v2</th><th>DBC</th></tr></thead>
+        <tbody>
+          <tr><td>Swap</td><td class="yes">[x]</td><td class="yes">[x]</td><td class="yes">[x]</td></tr>
+          <tr><td>Limit orders</td><td class="yes">[x]</td><td class="nope">[ ]</td><td class="nope">[ ]</td></tr>
+          <tr><td>Open, add, remove, and close positions</td><td class="yes">[x]</td><td class="yes">[x]</td><td class="nope">[ ]</td></tr>
+          <tr><td>Choose bin range and strategy, extend, shrink, rebalance</td><td class="yes">[x]</td><td class="nope">[ ]</td><td class="nope">[ ]</td></tr>
+          <tr><td>Claim fees</td><td class="yes">[x]</td><td class="yes">[x]</td><td class="yes">[x]</td></tr>
+          <tr><td>Claim rewards</td><td class="yes">[x]</td><td class="yes">[x]</td><td class="nope">[ ]</td></tr>
+          <tr><td>Create a pool or launch a token <span class="note">Off until you turn it on. You list a new pool before the agent can trade it, and before it can fund a DAMM v2 pool.</span></td><td class="yes">[x]</td><td class="yes">[x]</td><td class="yes">[x]</td></tr>
+        </tbody>
+      </table>
+      </div>
+    </section>
+
+    <section class="block" id="setup">
+      <div class="title-row"><div><h2 class="title">Setup takes three steps</h2><p class="lead">You need Node.js 20 or newer and your own Solana RPC. With a browser wallet, you can do steps 1 and 2 in the console instead.</p></div><img class="side-art study" src="assets/metboi-study.png" width="672" height="579" alt="Metboi writing in an LP handbook" loading="lazy"></div>
+      <div class="steps">
+        <div class="step">
+          <span class="n">1</span>
+          <h3>Write the limits</h3>
+          <p>Pick the pools, the allowed actions, and how much of each token the agent may spend.</p>
+          <pre class="cmd">$ npm install -g --ignore-scripts \
+    https://metboi.com/metboi-0.1.1.tgz
+$ export METBOI_RPC=&lt;your RPC URL&gt;
+$ export METBOI_OWNER_KEY=&lt;owner key file&gt;
+$ metboi init --agent &lt;agent public key&gt; \
+    --policy policy.json --broadcast</pre>
+        </div>
+        <div class="step">
+          <span class="n">2</span>
+          <h3>Fund the vault wallet</h3>
+          <p>Deposit only what the agent should work with. Your main wallet stays out of reach, and you can withdraw at any time.</p>
+          <pre class="cmd">$ export METBOI_AGENT_KEY=&lt;agent key file&gt;
+$ export METBOI_VAULT=&lt;vault from init&gt;
+$ metboi status</pre>
+        </div>
+        <div class="step">
+          <span class="n">3</span>
+          <h3>Connect your agent</h3>
+          <p>Install the skill, or run the MCP server. Give your agent the agent key only, and keep the owner key out of its reach. Every action simulates unless it asks to send.</p>
+          <pre class="cmd">$ npx skills add https://metboi.com</pre>
+        </div>
+      </div>
+    </section>
+
+    <section class="block" id="limits">
+      <h2 class="title">What it does not protect you from</h2>
+      <div class="limits-grid">
+        <div><h3>Bad trades inside the limits</h3><p>The vault does not judge prices. A compromised agent can lose money in a pool you listed, for example by accepting poor prices and getting sandwiched. New spending stops at your daily limit, but funds already in a position can also lose value when it exits at a bad price.</p></div>
+        <div><h3>Pools you choose to list</h3><p>The limits assume you trust the tokens and pools on the list. A bad token in a listed pool is still a bad token.</p></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site">
+    <div></div>
+    <div><a href="https://x.com/MetboiAgentic" target="_blank" rel="noopener">@MetboiAgentic on X</a><br>Program <a id="foot-program" target="_blank" rel="noopener"><code></code></a></div>
+  </footer>
+</div>
+
+<script src="data.js?v=0.1.1"></script>
+<script src="shared.js?v=0.1.1"></script>
+<script src="landing.js?v=0.1.1"></script>
+</body>
+</html>

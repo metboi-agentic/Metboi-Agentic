@@ -1,0 +1,13 @@
+{
+  "skills": [
+    {
+      "name": "metboi-agentic",
+      "description": "Use when the user wants an AI agent to work on Meteora from a limited vault wallet. Covers budgets and balances, quotes, swaps, and limit orders; DLMM and DAMM v2 liquidity, including choosing or moving a bin range, adding, removing, rebalancing, and claiming fees and rewards; creating pools; and launching tokens on DBC with fee claims. Runs through the metboi CLI. The vault enforces the limits on-chain.",
+      "files": [
+        "SKILL.md",
+        "references/setup.md",
+        "scripts/metboi.sh"
+      ]
+    }
+  ]
+}

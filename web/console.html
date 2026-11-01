@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Console · Metboi Agentic</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Geist+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" type="image/png" href="assets/logo.png">
+<link rel="stylesheet" href="styles.css?v=66fa33cf2713">
+</head>
+<body>
+<div class="gate" id="gate">
+  <a class="brand" href="/"><img src="assets/logo.png" alt="" width="40" height="36">Metboi Agentic</a>
+  <h1>Connect the wallet that owns your vault</h1>
+  <p>This wallet sets the limits and withdraws funds. It stays yours, and it never goes to your agent. Every change opens in your wallet for you to approve.</p>
+  <div class="wallet-list" id="wallet-list"></div>
+  <p class="sub" id="gate-note">Looking for wallets in this browser.</p>
+  <p class="sub" id="gate-error" role="alert"></p>
+</div>
+
+<div class="app" id="app" hidden>
+  <aside class="side">
+    <a class="brand" href="/"><img src="assets/logo.png" alt="" width="40" height="36">Metboi Agentic</a>
+    <nav aria-label="Console" id="side-nav">
+      <a href="#overview">Overview</a>
+      <a href="#limits">Limits</a>
+      <a href="#pools">Pools</a>
+      <a href="#agent">Agent key</a>
+      <a href="#funds">Funds</a>
+      <a href="#activity">Activity</a>
+    </nav>
+    <div class="foot">Owner<code id="side-owner"></code><button class="linkish" type="button" id="disconnect">Disconnect</button><br><a href="https://x.com/MetboiAgentic" target="_blank" rel="noopener">@MetboiAgentic on X</a></div>
+  </aside>
+  <main class="main">
+    <div class="status">
+      <h1><span class="path">~/vault/</span><span id="view-title">overview</span></h1>
+      <span class="state" id="state"></span>
+      <div class="right">
+        <span class="chip live">Mainnet</span>
+        <label class="inline" id="vault-pick" hidden>Vault <select id="vault-select"></select></label>
+        <button class="btn" id="new-vault" type="button">New vault</button>
+        <button class="btn danger" id="pause" type="button">Pause agent</button>
+      </div>
+    </div>
+    <div class="txline" id="txline" role="status" hidden></div>
+
+    <div class="view" data-view="create" hidden>
+      <div class="grid2">
+        <div>
+          <div class="card">
+            <h2>Agent key</h2>
+            <p class="sub">The key your agent signs with. Use a new key, never your main wallet.</p>
+            <label>Agent public key<input type="text" id="create-agent" spellcheck="false" autocomplete="off"></label>
+            <div class="actions">
+              <button class="btn" type="button" id="create-generate">Generate a key file</button>
+              <span id="create-generate-note"></span>
+            </div>
+            <label style="margin-top:14px">Expires on<input type="text" id="create-expires" placeholder="Never, or YYYY-MM-DD" spellcheck="false" autocomplete="off"></label>
+          </div>
+          <div class="card">
+            <h2>Spending limits</h2>
+            <p class="sub">A token with no row here cannot be spent at all. Limits use whole tokens, such as 0.5.</p>
+            <div id="create-limits"></div>
+            <div class="actions" style="align-items:end">
+              <label style="flex:1;min-width:230px">Add a token by mint address<input type="text" id="create-mint" spellcheck="false" autocomplete="off"></label>
+              <button class="btn" type="button" data-add-mint="create">Add token</button>
+            </div>
+          </div>
+          <div class="card">
+            <h2>Allowed pools</h2>
+            <p class="sub">The agent can only trade and add liquidity in these pools. You can add more later.</p>
+            <div id="create-pools"></div>
+            <div class="actions" style="align-items:end">
+              <label style="flex:1;min-width:230px">Pool address<input type="text" id="create-pool" placeholder="DLMM, DAMM v2, or DBC pool" spellcheck="false" autocomplete="off"></label>
+              <button class="btn" type="button" data-add-pool="create">Add pool</button>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h2>Allowed actions</h2>
+            <p class="sub">You can change these at any time.</p>
+            <div id="create-actions"></div>
+          </div>
+          <div class="card">
+            <h2>Create</h2>
+            <p class="sub">You pay about <span id="create-rent"></span> SOL in rent and a network fee. You approve it in your wallet.</p>
+            <div class="actions"><button class="btn primary" type="button" id="create-vault">Create vault</button></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" data-view="overview" hidden>
+      <div class="card" id="start-card" hidden>
+        <h2>Next steps</h2>
+        <ol class="next-steps">
+          <li>Add funds to the vault wallet in <a href="#funds">Funds</a>.</li>
+          <li>Send the agent key a little SOL for fees in <a href="#agent">Agent key</a>.</li>
+          <li>Give your agent its settings from <a href="#agent">Agent key</a>.</li>
+        </ol>
+      </div>
+      <div class="grid2">
+        <div>
+          <div class="card">
+            <h2>Spending in the last 24 hours</h2>
+            <p class="sub">Spend counts for 24 hours, then drops off hour by hour. Saving new limits does not reset it.</p>
+            <div id="meters"></div>
+          </div>
+          <div class="card">
+            <h2>Latest activity</h2>
+            <p class="sub">Attempts the vault refused never reach the chain, so they are not listed.</p>
+            <ol class="rows" id="latest"></ol>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h2>In the vault wallet</h2>
+            <p class="sub">Only you can take funds out. Funds inside open positions are not counted here.</p>
+            <div id="balances"></div>
+          </div>
+          <div class="card">
+            <h2>Rules in force</h2>
+            <p class="sub">Change them in Limits and Pools.</p>
+            <div class="kv"><span>Vault</span><span class="v" id="vault-address"></span></div>
+            <div class="kv"><span>Pools listed</span><span class="v" id="pool-count"></span></div>
+            <div class="kv"><span>Actions on</span><span class="v" id="actions-on"></span></div>
+            <div class="kv"><span>Agent key</span><span class="v" id="agent-short"></span></div>
+            <div class="kv"><span>Key expires</span><span class="v" id="expires"></span></div>
+          </div>
+          <div class="card">
+            <h2>If the agent key is lost</h2>
+            <p class="sub">Pause the agent, then replace its key. To close open positions yourself, use <code>metboi owner-scan</code> and the owner commands in the CLI.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" data-view="limits" hidden>
+      <div class="grid2">
+        <div class="card">
+          <h2>Spending limits</h2>
+          <p class="sub">A token with no row here cannot be spent at all. You can list up to 8. Limits use whole tokens, such as 0.5.</p>
+          <div id="limit-form"></div>
+          <div class="actions" style="align-items:end">
+            <label style="flex:1;min-width:230px">Add a token by mint address<input type="text" id="limits-mint" spellcheck="false" autocomplete="off"></label>
+            <button class="btn" type="button" data-add-mint="limits">Add token</button>
+          </div>
+          <div class="actions"><button class="btn primary" type="button" id="save-limits">Save limits</button><span>Your wallet signs one transaction.</span></div>
+        </div>
+        <div class="card">
+          <h2>Allowed actions</h2>
+          <p class="sub">Turning one off stops the agent right away, once you save.</p>
+          <div id="limit-actions"></div>
+          <p class="sub" style="margin:12px 0 0">You can always withdraw yourself, even with every action off.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" data-view="pools" hidden>
+      <div class="card">
+        <h2>Allowed pools</h2>
+        <p class="sub"><span id="pool-used"></span> of 16 used. The agent can leave a delisted pool, but cannot trade or add liquidity there.</p>
+        <div class="scroll-x"><table class="data" style="margin-top:6px"><thead><tr><th>Venue</th><th>Tokens</th><th>Address</th><th></th></tr></thead><tbody id="pool-rows"></tbody></table></div>
+        <div class="actions" style="align-items:end">
+          <label style="flex:1;min-width:230px">Pool address<input type="text" id="pools-pool" placeholder="DLMM, DAMM v2, or DBC pool" spellcheck="false" autocomplete="off"></label>
+          <button class="btn" type="button" data-add-pool="pools">Add pool</button>
+          <img class="scout" src="assets/metboi-search.png" width="438" height="438" alt="Metboi looking through binoculars" loading="lazy">
+        </div>
+        <div class="actions"><button class="btn primary" type="button" id="save-pools">Save pools</button><span id="pools-dirty"></span></div>
+      </div>
+    </div>
+
+    <div class="view" data-view="agent" hidden>
+      <div class="grid2">
+        <div>
+          <div class="card">
+            <h2>Agent key</h2>
+            <p class="sub">This key signs for the agent and pays its network fees. It is the only key to give your agent.</p>
+            <div class="kv"><span>Public key</span><span class="v" id="agent-full"></span></div>
+            <div class="kv"><span>Expires</span><span class="v" id="agent-expires"></span></div>
+            <label style="margin-top:14px">Replace with<input type="text" id="agent-new" placeholder="New agent public key" spellcheck="false" autocomplete="off"></label>
+            <div class="actions">
+              <button class="btn" type="button" id="agent-generate">Generate a key file</button>
+              <span id="agent-generate-note"></span>
+            </div>
+            <label style="margin-top:12px">Expires on<input type="text" id="agent-new-expires" placeholder="Never, or YYYY-MM-DD" spellcheck="false" autocomplete="off"></label>
+            <div class="actions"><button class="btn primary" type="button" id="agent-save">Replace key</button><span>The old key stops working at once.</span></div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h2>SOL for the agent key</h2>
+            <p class="sub">It pays fees and rent for what it creates, such as new bin arrays at about 0.07 SOL each. The vault does not limit this, so send only what you accept it using.</p>
+            <div class="kv"><span>Balance</span><span class="v" id="agent-balance"></span></div>
+            <label style="margin-top:12px">Amount in SOL<input type="text" id="agent-topup" inputmode="decimal" autocomplete="off"></label>
+            <div class="actions"><button class="btn" type="button" id="agent-send">Send SOL</button></div>
+          </div>
+          <div class="card">
+            <h2>Connect your agent</h2>
+            <p class="sub">Run the MCP server with these three values. Your wallet is never needed here.</p>
+            <pre class="cmd" id="mcp-env" style="margin:0"></pre>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" data-view="funds" hidden>
+      <div class="grid2">
+        <div>
+          <div class="card">
+            <h2>Deposit</h2>
+            <p class="sub">The vault trades wSOL, so SOL meant for trading gets wrapped. Send only what the agent should work with.</p>
+            <label>What to send<select id="deposit-kind">
+              <option value="wsol">SOL, wrapped to wSOL for trading</option>
+              <option value="sol">SOL, kept as SOL for position rent</option>
+              <option value="token">Another token</option>
+            </select></label>
+            <label style="margin-top:12px" id="deposit-mint-row" hidden>Token mint address<input type="text" id="deposit-mint" spellcheck="false" autocomplete="off"></label>
+            <label style="margin-top:12px">Amount<input type="text" id="deposit-amount" inputmode="decimal" placeholder="0.00" autocomplete="off"></label>
+            <div class="actions"><button class="btn primary" type="button" id="deposit-send">Deposit</button></div>
+          </div>
+          <div class="card">
+            <h2>Withdraw</h2>
+            <p class="sub">Works while the agent is paused or expired. Funds inside open positions must be closed out first.</p>
+            <label>Token<select id="withdraw-token"></select></label>
+            <label style="margin-top:12px">Amount<input type="text" id="withdraw-amount" inputmode="decimal" placeholder="0.00" autocomplete="off"></label>
+            <div class="actions" style="margin-top:8px"><button class="linkish" type="button" id="withdraw-max">Use the full balance</button></div>
+            <label style="margin-top:12px">Send to<input type="text" id="withdraw-to" spellcheck="false" autocomplete="off"></label>
+            <div class="actions"><button class="btn primary" type="button" id="withdraw-send">Withdraw</button></div>
+          </div>
+        </div>
+        <div>
+          <div class="card">
+            <h2>Balances</h2>
+            <p class="sub">SOL here pays rent when the agent opens a position.</p>
+            <div id="balances-2"></div>
+          </div>
+          <div class="card">
+            <h2>Vault wallet</h2>
+            <p class="sub">You can also send tokens straight to this address.</p>
+            <div class="kv"><span>Address</span><span class="v" id="wallet-full"></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" data-view="activity" hidden>
+      <div class="card">
+        <h2>Transactions on this vault</h2>
+        <p class="sub">The latest confirmed transactions. Attempts the vault refused in simulation never reach the chain.</p>
+        <ol class="rows" id="all-rows"></ol>
+      </div>
+    </div>
+  </main>
+</div>
+
+<script src="console.bundle.js?v=083697cbbbac"></script>
+</body>
+</html>
