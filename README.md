@@ -17,9 +17,12 @@ The on-chain program is deployed on mainnet-beta at `9sKnrstB16ZL2Yb8mLHXHcyeWff
 ## Use it
 
 ```bash
-npm install -g https://metboi.com/metboi.tgz
+npm install -g https://metboi.com/metboi-0.1.1.tgz
 metboi status
 ```
+
+The URL is pinned to the version, and `https://metboi.com/metboi-0.1.1.tgz.sha256` carries the checksum to compare against:
+`e72604fa2a7d05a94b1f220612e54c8e6942f1784af8a73c60b72643a622e0a4`.
 
 A vault has an owner key and an agent key. The owner creates the vault and sets the policy; the agent only gets its own key. Keep the owner key on a different machine or user account: both command sets ship in one package, so an agent with shell access can read any key file its account can reach.
 
